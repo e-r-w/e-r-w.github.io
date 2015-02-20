@@ -1,0 +1,72 @@
+$sizes: 0 5 10 20 40;
+$devices: (
+  xs: 0px,
+  sm: 768px,
+  md: 992px,
+  lg: 1200px
+);
+$types: (
+  p: padding,
+  m: margin
+);
+$alignments: left, right, center;
+
+@each $device, $width in $devices {
+  @media (min-width: #{$width}){
+    @each $size in $sizes {
+      
+      @each $type, $typdef in $types {      
+        .#{$device}-#{$type}-#{$size} {
+          #{$typdef}: #{$size}px;
+        }
+        .#{$device}-#{$type}t-#{$size} {
+          #{$typdef}-top: #{$size}px;
+        }
+        .#{$device}-#{$type}b-#{$size} {
+          #{$typdef}-bottom: #{$size}px;
+        }
+        .#{$device}-#{$type}l-#{$size} {
+          #{$typdef}-left: #{$size}px;
+        }
+        .#{$device}-#{$type}r-#{$size} {
+          #{$typdef}-right: #{$size}px;
+        }
+        .#{$device}-#{$type}x-#{$size} {
+          #{$typdef}-left: #{$size}px;
+          #{$typdef}-right: #{$size}px;
+        }
+        .#{$device}-#{$type}y-#{$size} {
+          #{$typdef}-top: #{$size}px;
+          #{$typdef}-bottom: #{$size}px;
+        }
+      }
+    }
+    @each $alignment in $alignments {
+        .#{$device}-t-#{$alignment} {
+          text-align: #{$alignment};
+        }
+    }
+  }
+}
+@each $alignment in $alignments{
+  .xs-t-#{$alignment} {
+    text-align: #{$alignment};
+  }
+}
+
+$displays: (
+  ib: inline-block,
+  block: block,
+  inline: inline
+);
+@each $displayName, $displayType in $displays {
+  .#{$displayName} {
+    display: #{$displayType};
+  }
+}
+.align-middle {
+  vertical-align: middle;
+}
+.hoverhand {
+  cursor: pointer;
+}

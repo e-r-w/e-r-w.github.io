@@ -9,10 +9,17 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.12.0/ui-bootstrap-tpls.min.js"></script>
     <!-- <script src="build/vendor.js"></script> -->
     <script src="build/build.js"></script>
-    <base href="rwp">
+    <base href="/">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body data-ng-app="erwApp">
-  <div></div>
+  <div ui-view></div>
+  <footer class="footer">
+    <div class="container xs-py-20">
+      <div ui-sref="blog.home" class="hoverhand footer__link">Blog</div>
+    </div>
+    
+  </footer>
+  
 </body>
 </html>

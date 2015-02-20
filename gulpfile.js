@@ -7,8 +7,8 @@ var del = require('del');
 var sequence = require('gulp-sequence');
 
 var SCRIPTS = [
-	'scripts/app/*.js',
-	'scripts/app/**/*.js'
+	'app/*.js',
+	'app/**/*.js'
 ];
 
 var VENDOR_SCRIPTS = [
