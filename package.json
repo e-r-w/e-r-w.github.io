@@ -1,0 +1,15 @@
+
+{
+  "name": "rwp",
+  "version": "0.0.1",
+  "author": "Ethan Williams <ethan.r.williams@live.com>",
+  "devDependencies": {
+    "gulp": "*",
+    "gulp-concat": "*",
+    "gulp-ngmin": "*",
+    "gulp-sass": "*",
+    "gulp-uglifycss": "*",
+    "del": "*",
+    "gulp-sequence": "*"
+  }
+}
