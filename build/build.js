@@ -3,8 +3,8 @@ var erwApp = angular.module('erwApp', [
   'ui.bootstrap'
 ]);
 
-erwApp.config(['$stateProvider', '$urlRouterProvider', '$urlMatcherFactoryProvider', function($stateProvider, $urlRouterProvider, $urlMatcherFactoryProvider){
-
+erwApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider){
+  
   $stateProvider   
     .state('blog', {
       templateUrl: "app/views/blog/layout.html",
@@ -24,6 +24,18 @@ erwApp.config(['$stateProvider', '$urlRouterProvider', '$urlMatcherFactoryProvid
   $urlRouterProvider.otherwise('/');
   
   //allow trailing slashes
-  $urlMatcherFactoryProvider.strictMode(false)
+  $urlRouterProvider.rule(function($injector, $location) {
+
+    var path = $location.path();
+    var hasTrailingSlash = path[path.length-1] === '/';
+
+    if(hasTrailingSlash) {
+
+      //if last charcter is a slash, return the same url without the slash  
+      var newPath = path.substr(0, path.length - 1); 
+      return newPath; 
+    } 
+
+  });
   
 }]);

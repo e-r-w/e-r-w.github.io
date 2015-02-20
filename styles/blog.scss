@@ -1,9 +1,13 @@
-.blog__bg-1 {
+.blog {
+  font-family: 'Open Sans', sans-serif;
+}
+
+.blog .bg-1 {
   background: #1F5996;
   color: #eee;
 }
 
-.blog__bg-2 {
+.blog .bg-2 {
   background: #3572b0;
   color: #EEE;
 }
@@ -12,10 +16,38 @@
   min-height: 900px;
 }
 
+.blog__header {
+
+}
+
 .blog__panel {
   background: #FFF;
   color: #666;
   -webkit-box-shadow: 1px 1px 5px 0 #6D98AB;
   -moz-box-shadow:    1px 1px 5px 0 #6D98AB;
   box-shadow:         1px 1px 5px 0 #6D98AB;
+}
+
+.blog .t-h1 {
+  font-size: 4em;
+  font-family: 'Crete Round', serif;
+}
+
+.blog .t-h2 {
+  font-size: 3em;
+  font-family: 'Crete Round', serif;
+}
+
+.blog .t-h3 {
+  font-size: 2em;
+  font-family: 'Crete Round', serif;
+}
+
+.blog .t-h4 {
+  text-transform: uppercase;
+  font-family: 'Crete Round', serif;
+}
+
+.blog .t-h5 {
+  font-family: 'Crete Round', serif;
 }
