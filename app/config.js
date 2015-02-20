@@ -2,7 +2,7 @@ erwApp.config(['$stateProvider', '$urlRouterProvider', '$urlMatcherFactoryProvid
 
   $stateProvider   
     .state('blog', {
-      templateUrl: "app/views/blog/_layout.html",
+      templateUrl: "app/views/blog/layout.html",
     })
     .state('blog.home', {
       url: "/blog",
