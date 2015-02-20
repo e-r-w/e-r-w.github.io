@@ -18,6 +18,13 @@ erwApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, 
       url: "/blog/archive",
       templateUrl: "app/views/blog/archive.html",
       parent: 'blog'
+    })
+    .state('blog.post', {
+      url: "/blog/:blogPost",
+      templateUrl: function ($stateParams){
+        return 'app/views/blog/posts/' + $stateParams.blogPost + '.html';
+      },
+      parent: 'blog'
     });
   
   //TODO 404 page
