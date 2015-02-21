@@ -12,7 +12,9 @@ var erwApp = angular.module('erwApp', [
 
 erwApp.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', function($stateProvider, $urlRouterProvider, $locationProvider){
   
-  $stateProvider   
+  $stateProvider
+  
+  //Blog
     .state('blog', {
       templateUrl: "app/views/blog/layout.html",
       controller: 'blogController',
@@ -38,7 +40,14 @@ erwApp.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', func
         return 'app/views/blog/posts/' + $stateParams.blogPost + '.html';
       },
       parent: 'blog'
-    });
+    })
+  
+  //Misc
+    .state('offended', {
+      url: "/offended",
+      templateUrl: "app/views/offended.html"
+    })
+  ;
   
   $locationProvider.html5Mode(true);
   
@@ -97,7 +106,8 @@ blogServices.factory('blogService', [function(){
   
   function _getAll(){
     return [
-      {title: 'first.', partial: 'first-post'}
+      {title: 'first.', partial: 'first-post'},
+      //{title: "Github Pages & Angular's Html5Mode", partial: 'gh-pages-angular'}
     ];
   }
   

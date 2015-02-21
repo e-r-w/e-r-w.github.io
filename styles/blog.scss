@@ -13,7 +13,7 @@
 }
 
 .blog__container {
-  min-height: 900px;
+  min-height: 80vh;
 }
 
 .blog__header {
@@ -71,4 +71,23 @@
   height: 20px;
   width: 256px;
   margin: 0 auto;
+}
+
+.blog [ui-view] {
+  -webkit-transition: opacity 0.3s ease-in-out;
+  transition: opacity 0.3s ease-in-out;
+  opacity: 1;
+}
+
+.blog [ui-view].ng-enter {
+  opacity: 0;
+}
+
+.blog [ui-view].ng-enter.ng-enter-active, .blog [ui-view].ng-leave {
+  opacity: 1;
+}
+
+.blog [ui-view].ng-leave.ng-leave-active {
+  display: none;
+  opacity: 0;
 }

@@ -1,27 +1,13 @@
 .footer {
   background: #555;
-  color: #eee;
+  color: #EEE;
 }
 
-.footer__link:hover {
-  color: #fff;
+.footer__link:hover,
+.footer__link:focus {
+  color: #FFF;
 }
 
-.blog [ui-view] {
-  -webkit-transition: opacity 0.3s ease-in-out;
-  transition: opacity 0.3s ease-in-out;
-  opacity: 1;
-}
-
-.blog [ui-view].ng-enter {
-  opacity: 0;
-}
-
-.blog [ui-view].ng-enter.ng-enter-active, .blog [ui-view].ng-leave {
-  opacity: 1;
-}
-
-.blog [ui-view].ng-leave.ng-leave-active {
-  display: none;
-  opacity: 0;
+.footer__link {
+  color: #EEE;
 }

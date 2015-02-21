@@ -24,8 +24,18 @@
 <body data-ng-app="erwApp">
   <div ui-view></div>
   <footer class="footer">
-    <div class="container xs-py-20 xs-t-center">
-      <div ui-sref="blog.home" class="hoverhand footer__link">Blog</div>
+    <div class="container xs-py-20">
+      <div class="row">
+        <div class="col-xs-4">
+          <a ui-sref="blog.home" class="hoverhand footer__link">Blog</a>
+        </div>
+        <div class="col-xs-4 xs-t-center">
+          <a href="https://github.com/e-r-w/" target="_blank" class="hoverhand footer__link">Github</a>
+        </div>
+        <div class="col-xs-4 xs-t-right">
+          <a ui-sref="offended" class="hoverhand footer__link">Offended?</a>
+        </div>
+      </div>
     </div>
   </footer>
 </body>
