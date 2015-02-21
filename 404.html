@@ -1,1 +1,24 @@
-404 yo
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.2/css/bootstrap.min.css">
+    <link href='http://fonts.googleapis.com/css?family=Crete+Round|Open+Sans:400italic,400,700' rel='stylesheet' type='text/css'>
+    <!-- <link rel="stylesheet" type="text/css" href="build/vendor.css"> -->
+    <link rel="stylesheet" type="text/css" href="/build/build.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.11/angular.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.13/angular-ui-router.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.11/angular-touch.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.12.0/ui-bootstrap-tpls.min.js"></script>
+    <!-- <script src="build/vendor.js"></script> -->
+    <script src="/build/build.js"></script>
+    <base href="/">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body data-ng-app="erwApp">
+  <div ui-view></div>
+  <footer class="footer">
+    <div class="container xs-py-20 xs-t-center">
+      <div ui-sref="blog.home" class="hoverhand footer__link">Blog</div>
+    </div>
+  </footer>
+</body>
+</html>

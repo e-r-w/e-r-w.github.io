@@ -1,4 +1,4 @@
-erwApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider){
+erwApp.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', function($stateProvider, $urlRouterProvider, $locationProvider){
   
   $stateProvider   
     .state('blog', {
@@ -25,6 +25,8 @@ erwApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, 
       },
       parent: 'blog'
     });
+  
+  $locationProvider.html5Mode(true);
   
   //TODO 404 page
   $urlRouterProvider.otherwise('/blog');
