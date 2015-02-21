@@ -3,6 +3,8 @@ erwApp.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', func
   $stateProvider   
     .state('blog', {
       templateUrl: "app/views/blog/layout.html",
+      controller: 'blogController',
+      controllerAs: 'model'
     })
     .state('blog.home', {
       url: "/blog",

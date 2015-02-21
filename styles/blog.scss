@@ -64,3 +64,11 @@
 .blog ul {
   padding-left: 30px;
 }
+
+.blog .loading {
+  background-image: url(/assets/images/ajax-loader.gif);
+  background-size: cover;
+  height: 20px;
+  width: 256px;
+  margin: 0 auto;
+}

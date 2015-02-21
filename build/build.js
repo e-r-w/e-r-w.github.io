@@ -13,6 +13,8 @@ erwApp.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', func
   $stateProvider   
     .state('blog', {
       templateUrl: "app/views/blog/layout.html",
+      controller: 'blogController',
+      controllerAs: 'model'
     })
     .state('blog.home', {
       url: "/blog",
@@ -59,6 +61,22 @@ blogControllers.controller('blogArchiveController', ['blogService', function(blo
   var model = this;
   
   model.posts = blogService.getAll();
+
+}]);
+blogControllers.controller('blogController', ['$rootScope', '$window', function($rootScope, $window){
+
+  var model = this;
+  
+  model.loading = false;
+  
+  $rootScope.$on('$stateChangeStart', function(){
+    $window.scrollTo(0,0);
+    model.loading = true;
+  });
+  
+  $rootScope.$on('$stateChangeSuccess', function(){
+    model.loading = false;
+  });
 
 }]);
 blogControllers.controller('blogHomeController', ['blogService', function(blogService){
