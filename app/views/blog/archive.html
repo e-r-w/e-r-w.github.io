@@ -8,7 +8,7 @@
       Well, here's everything.
     </div>
     <div class="xs-pt-10" data-ng-repeat="post in model.posts">
-      <a class="hoverhand" ui-sref="blog.post({ blogPost: '{{post}}' })">{{post}}</a>
+      <a class="hoverhand" ui-sref="blog.post({ blogPost: '{{post.partial}}' })">{{post.title}}</a>
     </div>
     <div class="xs-pt-10">
       Back to the <a class="hoverhand" ui-sref="blog.home">blog?</a>

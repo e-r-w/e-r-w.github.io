@@ -7,7 +7,7 @@ blogServices.factory('blogService', [function(){
   
   function _getAll(){
     return [
-      'first-post'
+      {title: 'first.', partial: 'first-post'}
     ];
   }
   
