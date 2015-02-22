@@ -1,0 +1,66 @@
+<div class="blog__panel xs-my-40">
+  <div class="xs-p-20 sm-p-40">
+    <div class="t-h2">
+      GitHub Pages &amp; Angular's Html5Mode
+    </div>
+    <div class="xs-pt-20">
+      At this point in time, this entire site is hosted by <a class="hoverhand" target="_blank" href="https://pages.github.com/">GitHub Pages</a>, with a domain name slapped on top. Pages however is an entirely static file serve with no real configurable options (think Node's 'http-server'). This presents a rather tricky issue when trying to use Angular's Html5Mode to prettify your urls. It is fine so long as someone hits your app from the root of the site, but if you want to link someone to any other route in your app, you end up with something a little like this:
+    </div>
+    <div class="xs-pt-20 xs-t-center">
+      <img src="/assets/images/github-404.PNG" class="img-1"/>
+    </div>
+    <div class="xs-pt-20">
+      There is of course a way to remedy this, albeit a hacky one. For those who are fairly new to SPAs (Single Page Applications) or the way server hosting works in general, I suggest you find a walkthrough/tutorial first. For those who know what they're doing...
+    </div>
+    <div class="xs-pt-20 t-h4">
+        The solution
+    </div>
+    <div class="xs-pt-10">
+        GitHub pages offers you a facility to overwrite the default 404 page (shown above) with your own custom 404 pages, much the same as most static file hosts, by simply putting a 404.html at the root of your site directory. The Html5Mode solution: 
+    </div>
+    <div class="xs-pt-10">
+      <ol type="a">
+        <li>
+          Copy and paste your index.html into your 404.html. Any time someone hits your app from a child route, the 404 page will serve as the app start and fire up angular, rendering everything that should be at the requested route. Or,
+        </li>
+        <li>
+          Rename your index.html to 404.html and let all requests get served the 404 page!
+        </li>
+      </ol>
+    </div>
+    <div class="xs-pt-10">
+      <div>
+        You can even defer the handling of 404 pages to angular, using
+      </div>
+      <pre class="xs-mt-10">$routeProvider.otherwise({redirectTo: '/my-angular-404'})</pre> 
+      <div>
+        for ngRoute, or
+      </div> 
+      <pre class="xs-mt-10">$urlRouterProvider.otherwise('/my-angular-404')</pre> 
+      <div>
+        for ui-router.
+      </div>
+    </div>
+    <div class="xs-pt-20 t-h4">
+        The caveat
+    </div>
+    <div class="xs-pt-10">
+      Of course, this means that any time someone hits your site at a child route, they will receive a 404 status code along with the page . All other resources should load fine, given a correct relative/absolute route.
+    </div>
+    <div class="xs-pt-10">
+      <img src="/assets/images/404-issue.PNG" class="img-1"/>
+    </div>
+    <div class="xs-pt-10">
+      To the user this is probably not an issue, but you may rack up some bad stats regarding the error rate of your site, if you even measure that or are concerned.
+    </div>
+    <div class="xs-pt-20">
+      So there you have it. GitHub Pages is an awesome concept (serving files straight out of a git repository) and I hope that this sort of thing really takes off, perhaps with nginx/IIS/some sort of server infrastructure in front of it.
+    </div>
+    <div class="xs-pt-20 blog__timestamp"> 
+       <i>- February 22, 2015</i>
+    </div> 
+    <div class="xs-pt-20"> 
+      Back to the <a class="hoverhand" ui-sref="blog.home">blog?</a>
+    </div> 
+  </div> 
+</div>
