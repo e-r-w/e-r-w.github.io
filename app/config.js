@@ -1,23 +1,25 @@
 erwApp.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', function($stateProvider, $urlRouterProvider, $locationProvider){
   
+  var cacheBust = '?' + new Date().toISOString();
+  
   $stateProvider
   
   //Blog
     .state('blog', {
-      templateUrl: "app/views/blog/layout.html",
+      templateUrl: "app/views/blog/layout.html" + cacheBust,
       controller: 'blogController',
       controllerAs: 'model'
     })
     .state('blog.home', {
       url: "/blog",
-      templateUrl: "app/views/blog/index.html",
+      templateUrl: "app/views/blog/index.html" + cacheBust,
       controller: 'blogHomeController',
       controllerAs: 'model',
       parent: 'blog'
     })
     .state('blog.archive', {
       url: "/blog/archive",
-      templateUrl: "app/views/blog/archive.html",
+      templateUrl: "app/views/blog/archive.html" + cacheBust,
       controller: 'blogArchiveController',
       controllerAs: 'model',
       parent: 'blog'
@@ -25,7 +27,7 @@ erwApp.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', func
     .state('blog.post', {
       url: "/blog/:blogPost",
       templateUrl: function ($stateParams){
-        return 'app/views/blog/posts/' + $stateParams.blogPost + '.html';
+        return 'app/views/blog/posts/' + $stateParams.blogPost + '.html' + cacheBust;
       },
       parent: 'blog'
     })
@@ -33,7 +35,7 @@ erwApp.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', func
   //Misc
     .state('offended', {
       url: "/offended",
-      templateUrl: "app/views/offended.html"
+      templateUrl: "app/views/offended.html" + cacheBust
     })
   ;
   
