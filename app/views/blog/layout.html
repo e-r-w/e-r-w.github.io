@@ -7,12 +7,15 @@
   </div>
   <div class="bg-2">
     <div class="container blog__container">
-      <div data-ng-show="loading">
+      <div data-ng-show="model.loading">
         <div class="xs-my-40">
           <div class="loading"></div>
         </div>
       </div>
-      <div ui-view></div>
+      <div data-ng-hide="model.loading">
+        <div ui-view></div>
+      </div>
+
     </div>
   </div>
 </div>

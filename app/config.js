@@ -49,8 +49,7 @@ erwApp.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', func
     var path = $location.path();
     var hasTrailingSlash = path[path.length-1] === '/';
     if(hasTrailingSlash) {
-      var newPath = path.substr(0, path.length - 1); 
-      return newPath; 
+      return path.substr(0, path.length - 1);
     } 
   });
   
