@@ -8,7 +8,8 @@ blogServices.factory('blogService', [function(){
   function _getAll(){
     return [
       {title: 'First.', partial: 'first-post'},
-      {title: "GitHub Pages & Angular's Html5Mode", partial: 'gh-pages-angular'}
+      {title: "GitHub Pages & Angular's Html5Mode", partial: 'gh-pages-angular'},
+      {title: "Well, Shit.", partial: 'well'}
     ];
   }
   

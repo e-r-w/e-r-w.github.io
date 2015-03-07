@@ -16,10 +16,6 @@
   min-height: 80vh;
 }
 
-.blog__header {
-
-}
-
 .blog__panel {
   background: #FFF;
   color: #666;
@@ -95,4 +91,14 @@
 .blog .img-1 {
   max-height: 300px;
   max-width: 75vw;
+}
+
+.escalated {
+  width: 100%;
+}
+
+@media (min-width: 992px) {
+  .escalated {
+    width: 60%;
+  }
 }
