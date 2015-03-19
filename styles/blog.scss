@@ -93,6 +93,34 @@
   max-width: 75vw;
 }
 
+.framework {
+  width: 75px;
+  height: 75px;
+}
+
+@media (min-width: 768px) {
+  .framework {
+    width: 100px;
+    height: 100px;
+  }
+}
+
+@media (min-width: 992px) {
+  .framework {
+    width: 150px;
+    height: 150px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .framework {
+    width: 200px;
+    height: 200px;
+  }
+}
+
+
+
 .escalated {
   width: 100%;
 }
