@@ -28088,7 +28088,9 @@ var cookie = _interopRequireWildcard(_reactCookie);
 
 var _game = require('./game');
 
-var Game = _interopRequireWildcard(_game);
+var _game2 = _interopRequireDefault(_game);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
@@ -28124,7 +28126,7 @@ var App = function (_React$Component) {
         return React.createElement(
           'div',
           null,
-          React.createElement(Game, { game: this.state.game })
+          React.createElement(_game2.default, { game: this.state.game })
         );
       } else if (this.state && this.state.failed) {
         return React.createElement(
@@ -28230,6 +28232,10 @@ var App = function (_React$Component) {
 },{"../core":3,"./game":304,"react":175,"react-cookie":17,"react-dom":19}],304:[function(require,module,exports){
 'use strict';
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = require('react');
@@ -28256,15 +28262,15 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var Game = function (_React$Component) {
-  _inherits(Game, _React$Component);
+var GameElement = function (_React$Component) {
+  _inherits(GameElement, _React$Component);
 
-  function Game(props) {
-    _classCallCheck(this, Game);
+  function GameElement(props) {
+    _classCallCheck(this, GameElement);
 
-    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Game).call(this, props));
+    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(GameElement).call(this, props));
 
-    _this.setState({ messages: [] });
+    _this.state = { messages: [] };
     var game = props.game;
 
     game.on('start', function () {
@@ -28344,7 +28350,7 @@ var Game = function (_React$Component) {
     return _this;
   }
 
-  _createClass(Game, [{
+  _createClass(GameElement, [{
     key: 'render',
     value: function render() {
       return React.createElement(
@@ -28366,9 +28372,9 @@ var Game = function (_React$Component) {
     }
   }]);
 
-  return Game;
+  return GameElement;
 }(React.Component);
 
-module.exports = Game;
+exports.default = GameElement;
 
 },{"../core":3,"../res/messages":299,"react":175,"react-cookie":17}]},{},[303]);
