@@ -138,8 +138,6 @@ exports.parse = function (msg) {
 var parseCommands = require('./command-parser').parse;
 var commands = require('./res/commands');
 var messages = require('./res/messages');
-var ROLE = require('./res/roles');
-var TURN = require('./res/turn');
 var Game = require('./game');
 var help = require('./handlers/help');
 var newGame = require('./handlers/new');
@@ -151,14 +149,13 @@ var alive = require('./handlers/alive');
 var dead = require('./handlers/dead');
 var vote = require('./handlers/vote');
 var kill = require('./handlers/kill');
+var Bot = require('./bot');
 
 exports.run = function (token, channel) {
 
-  var Bot = require('./bot');
-  var bot = new Bot(token, channel);
+  return new Promise(function (resolve, reject) {
 
-  return new Promise(function (resolve) {
-
+    var bot = new Bot(token, channel);
     var game = new Game();
 
     bot.on('message', function (msg) {
@@ -208,11 +205,7 @@ exports.run = function (token, channel) {
       });
       var votingWolves = game._votingWolves();
       votingWolves.forEach(function (wolf) {
-        if (votingWolves.length > 1) {
-          bot.userMessage(wolf.id, messages.werewolvesAre(votingWolves));
-        } else {
-          bot.userMessage(wolf.id, messages.onlyWolf);
-        }
+        bot.userMessage(wolf.id, messages.werewolvesAre(votingWolves));
       });
     });
 
@@ -271,7 +264,7 @@ exports.run = function (token, channel) {
       game._votingWolves().filter(function (wolf) {
         return !wolf.dead;
       }).forEach(function (player) {
-        bot.userMessage(player, messages.hunt);
+        return bot.userMessage(player, messages.hunt);
       });
     });
     //
@@ -279,7 +272,7 @@ exports.run = function (token, channel) {
       game._votingWolves().filter(function (wolf) {
         return !wolf.dead;
       }).forEach(function (player) {
-        bot.userMessage(player, messages.kill(game));
+        return bot.userMessage(player, messages.kill(game));
       });
     });
 
@@ -300,19 +293,20 @@ exports.run = function (token, channel) {
     });
 
     game.on('minion', function (minion, wolves) {
-      var werewolves = wolves.map(function (player) {
+      bot.userMessage(minion.id, messages.werewolvesAre(wolves.map(function (player) {
         return player.name;
-      }).join(', @');
-      bot.userMessage(minion.id, messages.werewolvesAre(werewolves));
+      }).join(', @')));
     });
 
     bot.start().then(function () {
       return resolve(game);
+    }).catch(function (err) {
+      return reject(err);
     });
   });
 };
 
-},{"./bot":1,"./command-parser":2,"./game":4,"./handlers/alive":5,"./handlers/dead":6,"./handlers/end":7,"./handlers/help":8,"./handlers/join":9,"./handlers/kill":10,"./handlers/new":11,"./handlers/see":12,"./handlers/start":13,"./handlers/vote":14,"./res/commands":297,"./res/messages":299,"./res/roles":300,"./res/turn":301}],4:[function(require,module,exports){
+},{"./bot":1,"./command-parser":2,"./game":4,"./handlers/alive":5,"./handlers/dead":6,"./handlers/end":7,"./handlers/help":8,"./handlers/join":9,"./handlers/kill":10,"./handlers/new":11,"./handlers/see":12,"./handlers/start":13,"./handlers/vote":14,"./res/commands":297,"./res/messages":299}],4:[function(require,module,exports){
 'use strict';
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -27971,9 +27965,9 @@ module.exports = {
     return '\n    The seer is ' + name + '\n  ';
   },
   werewolvesAre: function werewolvesAre(werewolves) {
-    return '\n    The werewolves are @' + werewolves.map(function (player) {
+    return werewolves.length > 1 ? '\n    The werewolves are @' + werewolves.map(function (player) {
       return player.name;
-    }).join(', @') + '\n  ';
+    }).join(', @') + '\n  ' : '\n    You are the only Werewolf\n  ';
   },
   yourRole: function yourRole(player) {
     return '\n    Your role is ' + player.role + '\n  ';
@@ -28009,7 +28003,6 @@ module.exports = {
   killed: function killed(player) {
     return '\n    :skull_and_crossbones: @' + player.name + ' (' + player.role + ') was killed during the night.\n  ';
   },
-  onlyWolf: '\n    You are the only Werewolf\n  ',
   notKilled: '\n    :skull_and_crossbones: no-one was killed during the night.\n  ',
   guard: '\n    Select a player to guard with !guard @player\n  ',
   guarded: function guarded(player) {
@@ -28221,8 +28214,8 @@ var App = function (_React$Component) {
       var _this3 = this;
 
       evt.preventDefault();
-      Core.run(this.state.slackToken, this.state.slackChannel).then(function (res) {
-        return _this3.setState({ running: true, failed: false, game: res[1] });
+      Core.run(this.state.slackToken, this.state.slackChannel).then(function (game) {
+        return _this3.setState({ running: true, failed: false, game: game });
       }).catch(function (err) {
         return _this3.setState({ running: false, failed: true });
       });
