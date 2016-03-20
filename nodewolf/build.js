@@ -992,7 +992,10 @@ module.exports = function (bot, game, msg) {
   if (game.status === STATUS.IDLE) {
     game.addPlayer(msg);
     bot.channelMessage(messages.newGame);
-    bot.channelMessage('Current lobby: @' + game.playerList());
+    var players = game.addPlayer(msg).map(function (player) {
+      return player.name;
+    }).join(', @');
+    bot.channelMessage('Current lobby: @' + players);
     game.status = STATUS.IN_LOBBY;
   } else {
     bot.channelMessage(messages.gameInProgress);
@@ -28275,17 +28278,11 @@ var GameElement = function (_React$Component) {
 
     game.on('start', function () {
       _this.setState({ messages: _this.state.messages.concat(['The game has started!']) });
-    });
-
-    game.on('vote:cast', function (player, target) {
+    }).on('vote:cast', function (player, target) {
       _this.setState({ messages: _this.state.messages.concat([player.name + ' has voted for ' + target.name]) });
-    });
-
-    game.on('tough', function (toughGuy) {
+    }).on('tough', function (toughGuy) {
       _this.setState({ messages: _this.state.messages.concat([toughGuy.name + ' survived an attack!']) });
-    });
-
-    game.on('vote:end', function (targets) {
+    }).on('vote:end', function (targets) {
       if (targets.length === 1 && targets[0] === 'noone') {
         _this.setState({ messages: _this.state.messages.concat([messages.noLynch]) });
       } else {
@@ -28297,13 +28294,9 @@ var GameElement = function (_React$Component) {
             return target.name + ' (' + target.role + ')';
           }).join(', @'))]) });
       }
-    });
-
-    game.on('phase:seer:end', function (seer, target, side) {
+    }).on('phase:seer:end', function (seer, target, side) {
       _this.setState({ messages: _this.state.messages.concat([messages.seen(target.name, side)]) });
-    });
-
-    game.on('phase:guard:end', function (bodyguard, guarded) {
+    }).on('phase:guard:end', function (bodyguard, guarded) {
       _this.setState({ messages: _this.state.messages.concat([messages.guarded(guarded)]) });
     });
 
@@ -28351,6 +28344,11 @@ var GameElement = function (_React$Component) {
   }
 
   _createClass(GameElement, [{
+    key: 'componentWillUnmount',
+    value: function componentWillUnmount() {
+      this.props.game.removeAllListeners();
+    }
+  }, {
     key: 'render',
     value: function render() {
       return React.createElement(
