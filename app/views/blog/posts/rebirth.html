@@ -10,8 +10,12 @@
       Where <i>have</i> you been?
     </div>
     <div class="xs-pt-10">
-      Well, I've headed up the front end of a team building 
+      Well, I've headed up the front end of a team building a rather large Angular 1.x app. Contrary to many complaints about the 'Monolith' that is supposedly Angular, the code base is pretty simple &amp; straight-foward; controllers bind data to the markup, services (that are well tested) handle all the logic and directives &amp; filters help simplify the logic built into the controllers/services/markup. Not that Angular is the tool to solve all problems (no frameworks or languages are for that matter), but it suits this purpose quite well. Which is why I find it so odd that it seems there is a mass exodus of the framework in favour of React; something that smells awfully alot like <a href="http://blog.cleancoder.com/uncle-bob/2016/07/27/TheChurn.html">the churn</a>, instead of a well thought out upgrade to a better framework. The app itself is written in plain ES5 with shims which, looking back on it now, seems a little rustic.
     </div>
+    <div class="xs-pt-10">
+      Not long after the project was prematurely called a success &amp; thrown to the dogs, we began to build node es6 microservices, services which I have pushed to keep transpilation out of by taking advantage of the features of the later node versions instead of rolling over and accepting babel as a normal process for building node apps. The development experience is much simplier &amp; faster given there is no compilation steps, the debug is cleaner &amp; clearer as there are no sourcemaps to weave back into the debugger and the lack of dependencies on compilation tools means the install time is far quicker &amp; there's no risk of out-dated or deperecated tooling leaking into the project as it ages. The code definitely isn't perfect but in the process I've found an excellent method of testing node apps using mocks and booting up a web server inside of the test process:
+    </div>
+    <pre class="xs-mt-10">$urlRouterProvider.otherwise('/my-angular-404')</pre> 
     
     <div class="xs-pt-20 t-h4">
       Up in the Cloud&trade;
