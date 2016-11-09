@@ -111,7 +111,8 @@ blogServices.factory('blogService', [function(){
       {title: "GitHub Pages & Angular's Html5Mode", partial: 'gh-pages-angular'},
       {title: "Well, Shit.", partial: 'well'},
       {title: "A case for goliath", partial: 'goliath'},
-{title: "Node, Semver & package management", partial: "node-semver"}
+      {title: "Node, Semver & package management", partial: "node-semver"},
+      {title: "Rebirth", partial: "rebirth"}
     ];
   }
   
