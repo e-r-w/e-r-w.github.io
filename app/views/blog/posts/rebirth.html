@@ -15,75 +15,61 @@
     <div class="xs-pt-10">
       Not long after the project was prematurely called a success &amp; thrown to the dogs, we began to build node es6 microservices, services which I have pushed to keep transpilation out of by taking advantage of the features of the later node versions instead of rolling over and accepting babel as a normal process for building node apps. The development experience is much simplier &amp; faster given there is no compilation steps, the debug is cleaner &amp; clearer as there are no sourcemaps to weave back into the debugger and the lack of dependencies on compilation tools means the install time is far quicker &amp; there's no risk of out-dated or deperecated tooling leaking into the project as it ages. The code definitely isn't perfect but in the process I've found an excellent method of testing node apps using mocks and booting up a web server inside of the test process:
     </div>
-    <pre class="xs-mt-10">$urlRouterProvider.otherwise('/my-angular-404')</pre> 
-    
+    <pre class="xs-mt-10">
+describe('some tests', () => {
+
+  before( done => {
+    mock('some-dependency', {foo: 'bar'});
+    app.listen(8765, done);
+  });
+
+  it('should do some things', done => {
+    // hit a copy of your app running on port 8765, with mocked/stubbed out dependencies, 
+    // doing assertions on the reponse and mocks where appropriate
+  });
+
+  after( () => {
+    app.close();
+  });
+
+});
+    </pre> 
+    <div class="xs-pt-10">
+      Because node comes with a built in tcp/http listener (instead of using Rack/IIS/some other integration layer to handle the http requests), this method of service testing is incredibly light weight and lightning fast. So much so that we would use this method for TDD instead of regular unit tests, because the assertions we made in the tests are exactly what the end user will see (in the given conditions of our mocks &amp; stubs of course). The tests are alot more robust in this way too; you can change the implementation of your app and not break a large number of tests because the unit has either been removed or replaced. This is one of the things I love about Golang; you can spin up your application with mocks/stubs inside of your test process, hit it with a rest client, and do assertions on the reponse/mocks. The set up is similar:
+    </div>
+    <pre class="xs-mt-10">
+func init() {
+  fakeServer := myApp.App {
+    someDependency: fake
+  }
+  go fakeServer.CreateServer().RunOnAddr(":8080")
+}
+
+func TestSomething(t *testing.T) {
+
+  var expected []map[string]string
+  _, err := restclient.Do(&restclient.RequestResponse{
+    Url:    "http://localhost:8080/foo/bar",
+    Result: &expected,
+  })
+  if err != nil {
+    t.Fatal(err)
+  } else {
+    if expected[0]["name"] != "foo" {
+      t.Fatal(expected)
+    }
+  }
+
+}
+    </pre>
+    <div class="xs-pt-10">
+      The only kicker to this is that Golang http servers are blocking; that is, we can avoid the blocking behaviour by using goroutines to run the server, but we have no handle on shutting down the server or terminating the goroutine until the test process is finished and shuts down. You can work around this limitation by running each test suite on a different port, and running the tests inside a docker container can help to avoid port collisions between things already running on the host.
+    </div>
     <div class="xs-pt-20 t-h4">
       Up in the Cloud&trade;
     </div>
-    
-    
-    <div class="xs-pt-10">
-      No, not the fact that I am a <i>'dev'</i>. If you hadn't got that by now, turn around. And run. 
-    </div>
-    <div class="xs-pt-10">
-      And no, this is not a diary or a place for me to confess my feelings to the world (although you will certainly hear my strong opinions).
-    </div>
-    <div class="xs-pt-10">
-      Anyway, about me...
-    </div>
-    <div class="xs-pt-20 t-h4">
-      Software developer?
-    </div>
-    <div class="xs-pt-10">
-      I am a software developer for a medium to large (ish) Australian company. Think corporate. I use the term &quot;software&quot; lightly as lately the work I've been doing is centered around web development only. That's not to say I dont fiddle with back-end stuff, or toss together scripts from time-to-time, I just spend most of my day either going through the motions of agile development, or writing web-tier code. Do I hunger for more? possibly. But I am relatively happy where I am (so long as you don't take away my shiny new <a href="https://angularjs.org/" target="_blank">dev tools</a>).
-    </div>
-
-    <div class="xs-pt-10">
-      People are dumb. God damn people are dumb. By people, I mean the general public. Of course, Anyone savvy enough to find and read this is excluded from that category. But some people should not be allowed to own any technical device. Ever. From my (rather limited) experience, the way I approach any UX problem is by asking myself this very simple question:
-    </div>
-    <div class="xs-mt-20 t-highlight">
-      <blockquote>
-        If I had severe brain damage, could I muster the thought capacity to use this?
-      </blockquote>
-    </div>
-    <div class="">
-      and if the answer is no, you have failed to produce a piece of software that the general public can use. If you think I'm a little jaded, you obviously haven't run into the same issues I have. Or at least you're a helluva lot more calm and rational than I am. Just to list a few:
-    </div>
-    <div class="xs-pt-10">
-      <ul>
-        <li>People still think that renaming a file extension on a file converts the file type. This is something that even people in their 20s, who have grown up with computers, still do. This is the veritable equivalent of living in a world full of lemmings. You cannot be that thick and think that it is okay, or that ignorant that you have no idea what you are doing and just do it anyway. Have you tried opening the file? no, no you didn't. You renamed it and sent it on it's merry way. Fuck you.</li>
-        <li>People don't understand what a browser is. Holy shit get off the internet before your computer explodes.</li>
-        <li>People will install apps and clog the shit out of their devices for the sake of having an app. Use the browser on your device you lazy sloth. Mobile optimized sites are generally 100 times better than the  app because it's far easier and quicker to create a site than it is to create an app, and you don't have more shit on your device creating random, annoying push notifications. If you have installed more than your banking, games &amp; other personal/hobby apps on your phone, you should immediately head to the nearest Apple store and surrender your iPhone. No, you do not need another Personal Trainer/Organiser app. You will survive and prosper without your <a class="hoverhand" href="https://play.google.com/store/apps/details?id=com.mcd.ui&hl=en" target="_blank">McDonald's app</a>. And you certainly don't need an app to buy a <a target="_blank" class="hoverhand" href="https://play.google.com/store/apps/details?id=au.com.carsales&hl=en">car</a> or a <a target="_blank" class="hoverhand" href="https://play.google.com/store/apps/details?id=com.fairfax.domain&hl=en">house</a>. Wanker.</li>
-      </ul>
-      
-    </div>
-    <div class="xs-pt-10">
-        That felt good to vent.
-    </div>
-    <div class="xs-pt-20 t-h4">
-        Jack of all trades
-    </div>
-    <div class="xs-pt-10">
-        I'm going to pretend you know what is meant by &quot;jack of all trades&quot;. That's what I am. At least that's what I've been called by co-workers. 
-    </div>
-    <div class="xs-pt-10">
-      A bit of a backstory: Fresh into University I was so excited to get into the nitty gritty of programming. I imagined my career as a developer sitting in front of a Matrix screen, smashing out code at the speed of light for whatever purpose (I really didn't care why). And I laughed at the idea of being a web developer.
-    </div>
-    <div class="xs-pt-10"> 
-      Fast forward to nearing the end of my studies and I jumped on the first offer I got. And wouldn't you know it, it was a job as a web developer.
-    </div> 
-    <div class="xs-pt-10">
-      Just over a year later, I'm loving it. I'm loving every aspect of it. I love the back end scripting and API writing, I love the styling and animations and user experience. I love my job, and every possible facet of it. But I work in a world where these two areas are split into seperate roles. I currently reside in the back end area of things, toiling away at .NET. However I continue to prod and dabble with front end, increasingly blurring the line between 'Dev' and 'Fed'.
-    </div>
-    
-    <div class="xs-pt-20 t-h4">
-        So what now?
-    </div>
-    <div class="xs-pt-10"> 
-      Well there you have it. That's my professional life in a nutshell really. I hope I can stick with this 'blogging' thing and continue to comment on/walkthrough my findings as a dev. Even if I don't, I'm sure my curiosities will lead me to rebuild this blog a couple of times.
-    </div> 
     <div class="xs-pt-20 blog__timestamp"> 
-       <i>- February 20, 2015</i>
+       <i>- November 9, 2016</i>
     </div> 
     <div class="xs-pt-20"> 
       Back to the <a class="hoverhand" ui-sref="blog.home">blog?</a>
